@@ -1,0 +1,123 @@
+create database db_unifecolho;
+
+use db_unifecolho;
+
+create table tbl_disciplinas  (
+id int not null auto_increment primary key,
+disciplinas varchar (45) not null,
+
+unique index (id)
+);
+
+create table tbl_Aluno  (
+id int not null auto_increment primary key,
+nome varchar (45) not null,
+
+unique index (id)
+);
+
+create table tbl_Professor  (
+id int not null auto_increment primary key,
+nome varchar (45) not null,
+
+unique index (id)
+);
+
+create table tbl_endereco_Professor  (
+id int not null auto_increment primary key,
+id_Professor int not null,
+bairro varchar (45) not null,
+cidade varchar (45) not null,
+estado varchar (45) not null,
+pais varchar (45) not null,
+cep varchar (11) not null,
+
+constraint FK_Professor_endereco
+foreign key (id_Professor)
+references tbl_Professor (id),
+
+unique index (id)
+);
+
+create table tbl_email_Professor  (
+id int not null auto_increment primary key,
+id_Professor int not null,
+emails varchar (45) not null,
+
+constraint FK_Professor_email
+foreign key (id_Professor)
+references tbl_Professor (id),
+unique index (id)
+);
+
+create table tbl_tel_Professor  (
+id int not null auto_increment primary key,
+id_Professor int not null,
+tels varchar (45) not null,
+
+constraint FK_Professor_tel
+foreign key (id_Professor)
+references tbl_Professor (id),
+
+unique index (id)
+);
+
+create table tbl_endereco_Aluno  (
+id int not null auto_increment primary key,
+id_Aluno int not null,
+bairro varchar (45) not null,
+cidade varchar (45) not null,
+estado varchar (45) not null,
+pais varchar (45) not null,
+cep varchar (11) not null,
+
+constraint FK_Aluno_endereco
+foreign key (id_Aluno)
+references tbl_Aluno (id),
+
+unique index (id)
+);
+
+create table tbl_email_Aluno  (
+id int not null auto_increment primary key,
+id_Aluno int not null,
+emails varchar (45) not null,
+
+constraint FK_Aluno_email
+foreign key (id_Aluno)
+references tbl_Aluno (id),
+
+unique index (id)
+);
+
+create table tbl_tel_Aluno  (
+id int not null auto_increment primary key,
+id_Aluno int not null,
+tels varchar (45) not null,
+
+constraint FK_Aluno_tel
+foreign key (id_Aluno)
+references tbl_Aluno (id),
+
+unique index (id)
+);
+
+create table tbl_Curso  (
+id int not null auto_increment primary key,
+id_Professor int not null,
+id_Aluno int not null,
+id_disciplinas int not null,
+nome varchar (45) not null,
+descricao varchar (45) not null,
+duracao varchar (45) not null,
+
+constraint FK_Professor_Aluno_disciplinas_Curso
+foreign key (id_Professor)
+references tbl_Professor (id),
+foreign key (id_Aluno)
+references tbl_Aluno (id),
+foreign key (id_disciplinas)
+references tbl_disciplinas (id),
+
+unique index (id)
+);
